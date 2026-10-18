@@ -1,0 +1,108 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>عقرب المذاكرة 🦂</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#101827;color:#fff}
+header{padding:25px 16px;background:#17243a;text-align:center;border-bottom:3px solid #e8a23a}
+header h1{color:#ffc45c;margin:8px 0}
+main{max-width:760px;margin:auto;padding:18px}
+.welcome,.card{background:#1b2940;border:1px solid #344761;border-radius:16px;padding:18px;margin-bottom:16px}
+h2{color:#ffd17b}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.subject{padding:16px 6px;border:1px solid #526580;border-radius:12px;background:#243650;color:white;font-size:16px;cursor:pointer}
+button{font-family:inherit}
+.subject:focus,button:focus{outline:2px solid #ffc45c}
+label{display:block;padding:10px;margin:8px 0;background:#253751;border-radius:9px;cursor:pointer}
+.action{background:#ffc45c;color:#172033;border:0;padding:12px 18px;border-radius:9px;font-weight:bold;cursor:pointer}
+#result{line-height:1.8;margin-top:12px}
+footer{text-align:center;padding:20px;color:#b9c5d6}
+@media(max-width:360px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+  <div style="font-size:38px">🦂</div>
+  <h1>عقرب المذاكرة</h1>
+  <p>ذاكر بذكاء، واتدرّب بثقة!</p>
+</header>
+<main>
+  <section class="welcome">
+    <h2>أهلاً بيك يا بطل!</h2>
+    <p>اختار مادة وابدأ رحلتك في التعلّم.</p>
+    <label for="student">اسمك (اختياري)</label>
+    <input id="student" placeholder="اكتب اسمك هنا" style="width:100%;padding:12px;border-radius:8px;border:0">
+    <p id="hello"></p>
+  </section>
+  <section class="card">
+    <h2>📚 المواد الدراسية</h2>
+    <div class="grid" id="subjects"></div>
+    <p id="chosen"></p>
+  </section>
+  <section class="card">
+    <h2>🧠 اختبار تجريبي</h2>
+    <p id="question"></p>
+    <div id="answers"></div>
+    <button class="action" id="check">تأكيد الإجابة</button>
+    <p id="result" aria-live="polite"></p>
+    <button class="action" id="next" hidden>السؤال التالي</button>
+  </section>
+</main>
+<footer>عقرب المذاكرة 🦂 | نسخة تجريبية مجانية</footer>
+<script>
+const subjects=["اللغة العربية","اللغة الإنجليزية","التاريخ","الرياضيات","الفيزياء","الكيمياء","البرمجة"];
+let subject="اللغة العربية",index=0,score=0,answered=false;
+const bank=[
+{q:"ما علامة رفع المبتدأ في جملة «العلمُ نورٌ»؟",a:["الضمة","الفتحة","الكسرة"],c:0,s:"الضمة علامة رفع المبتدأ هنا."},
+{q:"كم يساوي 7 × 8؟",a:["54","56","64"],c:1,s:"7 × 8 = 56."},
+{q:"ما الرمز الكيميائي للماء؟",a:["CO₂","O₂","H₂O"],c:2,s:"يتكوّن الماء من الهيدروجين والأكسجين، وصيغته H₂O."},
+{q:"أي مما يلي يُستخدم لبناء صفحات الويب؟",a:["HTML","SQL فقط","لا شيء مما سبق"],c:0,s:"HTML تُستخدم في بناء هيكل صفحة الويب."},
+{q:"ما وحدة قياس القوة في النظام الدولي؟",a:["الجول","النيوتن","الواط"],c:1,s:"وحدة قياس القوة هي النيوتن."}
+];
+const el=id=>document.getElementById(id);
+function renderSubjects(){
+el("subjects").innerHTML="";
+subjects.forEach(s=>{
+const b=document.createElement("button");
+b.className="subject";b.textContent=s;
+b.onclick=()=>{subject=s;el("chosen").textContent="المادة المختارة: "+s+" — الأسئلة المعروضة تجريبية وليست منهجًا رسميًا.";};
+el("subjects").appendChild(b);
+});
+}
+function renderQuestion(){
+answered=false;el("question").textContent=bank[index].q;
+el("answers").innerHTML="";
+bank[index].a.forEach((a,i)=>{
+const l=document.createElement("label");
+const r=document.createElement("input");
+r.type="radio";r.name="answer";r.value=i;
+l.append(r,document.createTextNode(" "+a));
+el("answers").appendChild(l);
+});
+el("result").textContent="";
+el("check").hidden=false;el("next").hidden=true;
+}
+el("check").onclick=()=>{
+if(answered)return;
+const r=document.querySelector('input[name="answer"]:checked');
+if(!r){el("result").textContent="اختار إجابة الأول.";return;}
+answered=true;
+const q=bank[index];
+if(Number(r.value)===q.c){score++;el("result").textContent="✅ إجابة صحيحة! "+q.s;}
+else{el("result").textContent="❌ الإجابة الصحيحة: "+q.a[q.c]+". "+q.s;}
+el("result").textContent+=" | درجتك: "+score+" من "+(index+1);
+el("check").hidden=true;el("next").hidden=false;
+};
+el("next").onclick=()=>{
+if(index<bank.length-1){index++;renderQuestion();}
+else{el("question").textContent="خلصت الاختبار!";el("answers").innerHTML="";el("result").textContent="نتيجتك: "+score+" من "+bank.length+" — أسئلة تجريبية فقط.";el("check").hidden=true;el("next").hidden=true;index=-1;score=0;el("next").hidden=false;el("next").textContent="إعادة الاختبار";el("next").onclick=()=>{index=0;score=0;el("next").textContent="السؤال التالي";renderQuestion();};}
+};
+el("student").addEventListener("input",()=>{el("hello").textContent=el("student").value.trim()?"أهلاً يا "+el("student").value.trim()+"!":"";});
+renderSubjects();renderQuestion();
+</script>
+</body>
+</html>
