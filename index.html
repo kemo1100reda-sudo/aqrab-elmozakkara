@@ -1,116 +1,83 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>عقرب المذاكرة - منصة باكالوريا مصرية</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>عقرب المذاكرة - منصة الثانوية العامة</title>
     <style>
         * { box-sizing: border-box; }
-        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #12192c; color: #fff; }
-        header { padding: 25px 16px; background-color: #1b2940; text-align: center; border-bottom: 3px solid #ffc44c; }
-        header h1 { color: #ffc44c; margin: 0; font-size: 38px; }
-        header p { color: #ffd17b; margin: 8px 0 0; font-size: 16px; }
-        main { max-width: 760px; margin: auto; padding: 20px; }
-        .card { background-color: #1b2940; border-radius: 12px; padding: 20px; margin-bottom: 24px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-        h2 { color: #ffd17b; margin-top: 0; border-bottom: 2px solid #2d3b55; padding-bottom: 10px; }
-        .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 16px; }
-        .subject { padding: 16px; border: 2px solid #ffc44c; background-color: #12192c; color: #fff; border-radius: 8px; cursor: pointer; font-size: 18px; font-family: inherit; font-weight: bold; transition: all 0.3s; text-align: center; }
-        .subject:hover, .subject:focus { background-color: #ffc44c; color: #12192c; transform: translateY(-3px); }
-        input[type="text"], input[type="radio"] { accent-color: #ffc44c; }
-        label { display: block; padding: 12px; background-color: #2d3b55; margin-bottom: 12px; border-radius: 8px; cursor: pointer; transition: background-color 0.2s; font-size: 18px; }
-        label:hover { background-color: #3b4d6e; }
-        input[type="radio"] { margin-left: 15px; transform: scale(1.2); }
-        .action { background-color: #ffc44c; color: #12192c; border: none; padding: 14px 28px; font-size: 18px; font-weight: bold; border-radius: 8px; cursor: pointer; width: 100%; transition: background-color 0.2s; margin-top: 10px; }
-        .action:hover { background-color: #ffd17b; }
-        #result { line-height: 1.8; margin-top: 20px; font-size: 20px; font-weight: bold; text-align: center; min-height: 50px; }
-        #question { font-size: 24px; margin-bottom: 20px; font-weight: bold; color: #fff; line-height: 1.4; }
-        #chosen { font-size: 20px; color: #ffc44c; font-weight: bold; margin-top: 15px; text-align: center; }
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #101827; color: #fff; }
+        header { padding: 25px 16px; background-color: #17243a; text-align: center; border-bottom: 3px solid #e8a23a; }
+        header h1 { color: #ffc44c; margin: 8px 0; }
+        main { max-width: 760px; margin: auto; padding: 18px; }
+        .welcome, .card { background-color: #1b2940; border: 1px solid #344761; border-radius: 16px; padding: 18px; margin-bottom: 16px; }
+        h2 { color: #ffd17b; }
+        .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+        .subject { padding: 16px 6px; border: 1px solid #52627e; background-color: #12192c; color: #fff; border-radius: 8px; cursor: pointer; font-size: 18px; font-family: inherit; transition: background-color 0.2s; text-align: center; }
+        .subject:hover { background-color: #ffd17b; color: #101827; }
+        input[type="radio"] { accent-color: #ffc44c; }
+        input[type="text"] { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #344761; background-color: #12192c; color: #fff; font-size: 16px; }
+        label { display: block; padding: 12px; cursor: pointer; border-bottom: 1px solid #344761; }
+        .action { background-color: #ffd17b; color: #101827; border: none; padding: 12px 24px; font-size: 18px; font-weight: bold; border-radius: 8px; cursor: pointer; width: 100%; margin-top: 10px; }
+        .action:hover { background-color: #ffc44c; }
+        #result { margin-top: 15px; font-size: 18px; font-weight: bold; text-align: center; }
         .hidden { display: none; }
-        @media(max-width: 480px) { .grid { grid-template-columns: 1fr; } }
+        #hello { color: #ffd17b; margin-top: 10px; font-weight: bold; }
+        .ai-chat { background-color: #12192c; padding: 15px; border-radius: 12px; margin-top: 15px; border: 1px solid #ffc44c; }
+        .ai-message { color: #89a0c0; font-size: 16px; }
+        footer { text-align: center; padding: 20px; color: #89a0c0; }
     </style>
 </head>
 <body>
     <header>
-        <div style="font-size: 48px;">🦂</div>
+        <div style="font-size: 38px;">🦂</div>
         <h1>عقرب المذاكرة</h1>
-        <p>ذاكر بذكاء، وتدرّب بثقة!</p>
     </header>
 
     <main>
-        <section class="card">
+        <section class="welcome">
             <h2>أهلاً بك يا بطل!</h2>
-            <p>اختار مادة وابدأ رحلتك في التعلُّم.</p>
+            <p>اختار مادة وابدأ رحلتك في التعلم والشرح.</p>
             <label for="student">اسمك (اختياري)</label>
-            <input type="text" id="student" placeholder="اكتب اسمك هنا" style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #2d3b55; background-color: #12192c; color: #fff; font-size: 16px;">
-            <p id="hello" style="margin-top: 15px; color: #ffc44c; font-weight: bold;"></p>
+            <input type="text" id="student" placeholder="اكتب اسمك هنا">
+            <p id="hello"></p>
         </section>
 
         <section class="card">
-            <h2>المواد الدراسية</h2>
+            <h2>المواد الدراسية (ثانية ثانوي)</h2>
             <div class="grid" id="subjects"></div>
             <p id="chosen"></p>
         </section>
 
-        <section class="card hidden" id="quiz-card">
-            <h2>اختبار تجريبي</h2>
-            <p id="question"></p>
-            <div id="answers"></div>
-            <button class="action" id="check">تأكيد الإجابة</button>
-            <p id="result" aria-live="polite"></p>
-            <button class="action hidden" id="next">السؤال التالي</button>
+        <section class="card hidden" id="subject-card">
+            <h2 id="current-subject-title"></h2>
+            
+            <!-- قسم الذكاء الاصطناعي -->
+            <div class="ai-chat">
+                <h2>🤖 مساعد الذكاء الاصطناعي</h2>
+                <p id="ai-response" class="ai-message">مرحباً! أنا هنا لشرح الدروس والإجابة على أسئلتك في هذه المادة. كيف يمكنني مساعدتك اليوم؟</p>
+            </div>
+
+            <!-- الاختبار التجريبي -->
+            <div style="margin-top: 20px;">
+                <h2>📝 اختبار تجريبي</h2>
+                <p id="question"></p>
+                <div id="answers"></div>
+                <button class="action" id="check">تأكيد الإجابة</button>
+                <p id="result"></p>
+                <button class="action hidden" id="next">السؤال التالي</button>
+            </div>
         </section>
     </main>
 
     <footer>
-        <p style="text-align: center; color: #6b7c96; font-size: 14px;">عقرب المذاكرة 🦂 | نسخة تجريبية</p>
+        <p>عقرب المذاكرة 🦂 | نسخة تجريبية</p>
     </footer>
 
     <script>
-        const subjects = ["اللغة العربية", "اللغة الإنجليزية", "الرياضيات", "التاريخ", "الفيزياء", "الكيمياء", "البرمجة"];
-        
-        const bank = {
-            "اللغة العربية": [
-                { q: "ما علامة رفع المبتدأ في جملة «العلمُ نورٌ»؟", a: ["الضمة", "الفتحة", "الكسرة"], c: 0 },
-                { q: "ما هو الفعل الناسخ الذي يفيد التوقيت في النهار؟", a: ["أصبح", "أمسى", "ظل"], c: 2 },
-                { q: "ما نوع الأسلوب في جملة «لا تهمل دروسك»؟", a: ["نهي", "أمر", "استفهام"], c: 0 }
-            ],
-            "اللغة الإنجليزية": [
-                { q: "Choose the correct past tense: She ___ to the market yesterday.", a: ["go", "goed", "went"], c: 2 },
-                { q: "Identify the adjective in the sentence: 'The big cat slept.'", a: ["cat", "big", "slept"], c: 1 },
-                { q: "Translate: 'الطقس جميل اليوم'", a: ["The weather is nice today.", "The weather was nice today.", "The weather is bad today."], c: 0 }
-            ],
-            "الرياضيات": [
-                { q: "ما هو حل المعادلة: x + 5 = 10؟", a: ["x = 5", "x = 15", "x = -5"], c: 0 },
-                { q: "ما هي مساحة المربع الذي طول ضلعه 4 سم؟", a: ["8 سم²", "16 سم²", "12 سم²"], c: 1 },
-                { q: "أي مما يلي يعتبر عدداً أولياً؟", a: ["4", "6", "7"], c: 2 }
-            ],
-            "التاريخ": [
-                { q: "ما هي السنة التي بدأت فيها الحرب العالمية الأولى؟", a: ["1914", "1939", "1918"], c: 0 },
-                { q: "من هو قائد معركة حطين؟", a: ["صلاح الدين الأيوبي", "الظاهر بيبرس", "قطز"], c: 0 },
-                { q: "في أي قارة تقع مصر؟", a: ["آسيا", "أفريقيا", "أوروبا"], c: 1 }
-            ],
-            "الفيزياء": [
-                { q: "ما وحدة قياس القوة في النظام الدولي؟", a: ["الجول", "النيوتن", "الواط"], c: 1 },
-                { q: "ما هو القانون الأساسي للحركة لنيوتن؟", a: ["F = ma", "E = mc²", "V = IR"], c: 0 },
-                { q: "أي مما يلي يعد من أشكال الطاقة؟", a: ["الحرارة", "الكتلة", "السرعة"], c: 0 }
-            ],
-            "الكيمياء": [
-                { q: "ما الرمز الكيميائي للماء؟", a: ["CO₂", "O₂", "H₂O"], c: 2 },
-                { q: "ما هي وحدة قياس الذوبانية؟", a: ["مول/لتر", "جرام", "كيلوجرام"], c: 0 },
-                { q: "أي من الغازات التالية ضروري لعملية التنفس؟", a: ["ثاني أكسيد الكربون", "الأكسجين", "النيتروجين"], c: 1 }
-            ],
-            "البرمجة": [
-                { q: "أي مما يلي يُستخدم لبناء صفحات الويب؟", a: ["HTML", "SQL فقط", "لا شيء مما سبق"], c: 0 },
-                { q: "ما هي اللغة التي تُستخدم لتحسين تفاعل صفحات الويب؟", a: ["HTML", "JavaScript", "CSS"], c: 1 },
-                { q: "ما معنى اختصار CSS؟", a: ["Color Style Sheets", "Cascading Style Sheets", "Computer Style Sheets"], c: 1 }
-            ]
-        };
-
+        const subjects = ["اللغة العربية", "اللغة الإنجليزية", "الرياضيات", "التاريخ", "الفيزياء", "الكيمياء", "الأحياء", "الجغرافيا"];
         let currentSubject = "";
-        let index = 0;
-        let score = 0;
-        let answered = false;
+        let index = 0, score = 0, answered = false;
 
         const el = (id) => document.getElementById(id);
 
@@ -125,18 +92,70 @@
             });
         }
 
+        const bank = {
+            "اللغة العربية": {
+                lessons: "شرح درس البلاغة: الكناية هي لفظ أطلق وأريد به لازم معناه... ويمكنني إعطاؤك أمثلة.",
+                quiz: [
+                    { q: "ما علامة رفع المبتدأ في جملة «العلمُ نورٌ»؟", a: ["الضمة", "الفتحة", "الكسرة"], c: 0 }
+                ]
+            },
+            "اللغة الإنجليزية": {
+                lessons: "Explanation of Past Simple: Used for actions completed in the past. Subject + V2 + object.",
+                quiz: [
+                    { q: "Identify the adjective: 'The big cat.'", a: ["cat", "big", "the"], c: 1 }
+                ]
+            },
+            "الرياضيات": {
+                lessons: "شرح حساب المثلثات: قانون الجيب (a/sinA = b/sinB = c/sinC) يُستخدم لحل المثلث.",
+                quiz: [
+                    { q: "7 × 8 = ؟", a: ["54", "56", "64"], c: 1 }
+                ]
+            },
+            "التاريخ": {
+                lessons: "شرح الدولة الأموية: تأسست على يد معاوية بن أبي سفيان عام 41 هـ.",
+                quiz: [
+                    { q: "من هو قائد معركة حطين؟", a: ["صلاح الدين", "بيبرس", "قطز"], c: 0 }
+                ]
+            },
+            "الفيزياء": {
+                lessons: "شرح الحركة الاهتزازية: الحركة التي تتكرر على فترات زمنية متساوية.",
+                quiz: [
+                    { q: "ما وحدة قياس القوة؟", a: ["الجول", "النيوتن", "الواط"], c: 1 }
+                ]
+            },
+            "الكيمياء": {
+                lessons: "شرح الروابط الكيميائية: الرابطة الأيونية تنشأ بين أيونات موجبة وسالبة.",
+                quiz: [
+                    { q: "ما الرمز الكيميائي للماء؟", a: ["CO₂", "O₂", "H₂O"], c: 2 }
+                ]
+            },
+            "الأحياء": {
+                lessons: "شرح النقل في النبات: يتم عن طريق أوعية الخشب واللحاء.",
+                quiz: [
+                    { q: "ما العضو المسؤول عن ضخ الدم؟", a: ["الرئة", "القلب", "الكبد"], c: 1 }
+                ]
+            },
+            "الجغرافيا": {
+                lessons: "شرح التنمية الاقتصادية: زيادة الدخل القومي وتحسين مستوى المعيشة.",
+                quiz: [
+                    { q: "ما عاصمة مصر؟", a: ["الإسكندرية", "القاهرة", "الجيزة"], c: 1 }
+                ]
+            }
+        };
+
         function selectSubject(s) {
             currentSubject = s;
+            el("current-subject-title").textContent = s;
             el("chosen").textContent = "المادة المختارة: " + s;
-            el("quiz-card").classList.remove("hidden");
-            index = 0;
-            score = 0;
+            el("ai-response").textContent = bank[s].lessons;
+            el("subject-card").classList.remove("hidden");
+            index = 0; score = 0;
             renderQuestion();
         }
 
         function renderQuestion() {
             answered = false;
-            const q = bank[currentSubject][index];
+            const q = bank[currentSubject].quiz[index];
             el("question").textContent = q.q;
             el("answers").innerHTML = "";
             q.a.forEach((a, i) => {
@@ -154,30 +173,24 @@
             const r = document.querySelector('input[name="answer"]:checked');
             if (!r) { el("result").textContent = "❌ اختار إجابة الأول!"; return; }
             answered = true;
-            const q = bank[currentSubject][index];
+            const q = bank[currentSubject].quiz[index];
             if (Number(r.value) === q.c) {
                 score++;
                 el("result").innerHTML = '<span style="color: #ffc44c;">✅ إجابة صحيحة!</span>';
             } else {
-                el("result").innerHTML = `<span style="color: #ff5e5e;"> هي: ${q.a[q.c]}</span>`;
+                el("result").innerHTML = `<span style="color: #ff5e5e;">❌ الإجابة الصحيحة هي: ${q.a[q.c]}</span>`;
             }
             el("check").classList.add("hidden");
             el("next").classList.remove("hidden");
-            
-            if (index === bank[currentSubject].length - 1) {
-                el("next").textContent = "إنهاء الاختبار";
-            } else {
-                el("next").textContent = "السؤال التالي";
-            }
+            if (index === bank[currentSubject].quiz.length - 1) el("next").textContent = "إنهاء الاختبار";
         };
 
         el("next").onclick = () => {
             index++;
-            if (index < bank[currentSubject].length) {
-                renderQuestion();
-            } else {
-                el("quiz-card").classList.add("hidden");
-                el("chosen").innerHTML = `🎉 خلصت الاختبار يا بطل!<br>درجتك: ${score} من ${bank[currentSubject].length}`;
+            if (index < bank[currentSubject].quiz.length) renderQuestion();
+            else {
+                el("subject-card").classList.add("hidden");
+                el("chosen").innerHTML = `🎉 خلصت الاختبار يا بطل!<br>درجتك: ${score} من ${bank[currentSubject].quiz.length}`;
             }
         };
 
